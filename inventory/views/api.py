@@ -11,7 +11,8 @@ from django.http import HttpResponse
 @permission_classes([IsAuthenticated])
 def showResponse(request):
     return Response({
-        "message" : True
+        "message" : True,
+        "token" : True
     }, status=status.HTTP_200_OK)
 # def showResponse(request):
 #     return HttpResponse('hello ralph')
