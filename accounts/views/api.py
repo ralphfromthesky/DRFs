@@ -54,7 +54,7 @@ class LoginView(APIView):
         
         
 class AssignRoleView(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminRole]
     
     def post(self, request):
         serializer = AssignRoleSerializer(data=request.data)
