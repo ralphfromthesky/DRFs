@@ -4,9 +4,13 @@ from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAdminUser
+from django.contrib.auth.models import User
+
 
 from ..models.models import UserProfile
-from ..serializers.serializers import RegisterSerializer, LoginSerializer, AssignRoleSerializer
+from ..serializers.serializers import RegisterSerializer, LoginSerializer, AssignRoleSerializer, UserListSerializer
+from ..permissions.permissions import IsAdminRole
+
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -74,3 +78,11 @@ class AssignRoleView(APIView):
             {"message": f"Role updated successfully to '{role}'."},
             status=status.HTTP_200_OK
         )
+        
+class UserListView(APIView):
+    permission_classes = [IsAdminRole]
+    
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserListSerializer(users, many=True)
+        return Response(serializer.data)

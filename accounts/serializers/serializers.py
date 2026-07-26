@@ -38,3 +38,10 @@ class LoginSerializer(serializers.Serializer):
 class AssignRoleSerializer(serializers.Serializer):
     user_id = serializers.IntegerField()
     role = serializers.ChoiceField(choices=['viewer', 'editor', 'admin'])
+    
+class UserListSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(source='userprofile.role', default='No profile')
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'role']
