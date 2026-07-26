@@ -78,6 +78,7 @@ class AssignRoleView(APIView):
             {"message": f"Role updated successfully to '{role}'."},
             status=status.HTTP_200_OK
         )
+  
         
 class UserListView(APIView):
     permission_classes = [IsAdminRole]

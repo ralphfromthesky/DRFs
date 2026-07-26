@@ -37,7 +37,16 @@ class LoginSerializer(serializers.Serializer):
     
 class AssignRoleSerializer(serializers.Serializer):
     user_id = serializers.IntegerField()
-    role = serializers.ChoiceField(choices=['viewer', 'editor', 'admin'])
+    role = serializers.CharField()
+    
+    def validate_role(self, value):
+        valid_roles = ['viewer', 'editor', 'admin']
+        if value not in valid_roles:
+            raise serializers.ValidationError({
+                "success" : False,
+                "message" : f"Invalid role '{value}'. Valid roles are: viewer, editor, admin."
+            })
+        return value
     
 class UserListSerializer(serializers.ModelSerializer):
     role = serializers.CharField(source='userprofile.role', default='No profile')
