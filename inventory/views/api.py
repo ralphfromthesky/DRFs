@@ -5,16 +5,15 @@ from ..models.models import Item
 from ..serializers.serializers import ItemSerializers
 from accounts.permissions.permissions import RoleBasedPermission
 
+
 class ItemView(APIView):
     permission_classes = [RoleBasedPermission]
     
-    # GET — lahat pwede (viewer, editor, admin)
     def get(self, request):
         items = Item.objects.all()
         serializer = ItemSerializers(items, many=True)
         return Response(serializer.data)
     
-    # POST — viewer, editor, admin pwede
     def post(self, request):
         serializer = ItemSerializers(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -23,8 +22,11 @@ class ItemView(APIView):
             {"message": "Item created successfully."},
             status=status.HTTP_201_CREATED
         )
+
+
+class ItemDetailView(APIView):
+    permission_classes = [RoleBasedPermission]
     
-    # PUT — editor, admin pwede
     def put(self, request, pk):
         item = Item.objects.get(pk=pk)
         serializer = ItemSerializers(item, data=request.data)
@@ -35,11 +37,13 @@ class ItemView(APIView):
             status=status.HTTP_200_OK
         )
     
-    # DELETE — admin lang pwede
     def delete(self, request, pk):
         item = Item.objects.get(pk=pk)
         item.delete()
         return Response(
-            {"message": "Item deleted successfully."},
+            {
+                "message": f"Item deleted successfully - with key {pk}."
+
+             },
             status=status.HTTP_200_OK
         )
