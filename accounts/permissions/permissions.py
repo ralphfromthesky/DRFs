@@ -25,7 +25,7 @@ class RoleBasedPermission(BasePermission):
             return request.method in ['GET', 'POST']
         
         if role == 'editor':
-            return request.method in ['GET', 'POST', 'PUT', 'PATCH']
+            return request.method in ['GET', 'PUT', 'PATCH']
         
         if role == 'admin':
             return request.method in ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
