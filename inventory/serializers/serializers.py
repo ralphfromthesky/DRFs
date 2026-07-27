@@ -1,8 +1,8 @@
 from ..models.models import Item
 from rest_framework import serializers
 
-class ItemSerializers(serializers.Serializer):
+class ItemSerializers(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['id', 'item', 'descriptions', 'quantity', 'price']
+        fields = ['id', 'item', 'description', 'quantity', 'price']
         read_only_fields = ['id']
