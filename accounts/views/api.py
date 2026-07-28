@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAdminUser
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 
 from ..models.models import UserProfile
@@ -87,3 +90,20 @@ class UserListView(APIView):
         users = User.objects.all()
         serializer = UserListSerializer(users, many=True)
         return Response(serializer.data)
+
+class LogoutView(APIView):
+    def post(self, request):
+        try:
+            refresh_token = request.data.get('refresh')
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            
+            return Response(
+                {"message": "Logout successful."},
+                status=status.HTTP_200_OK
+            )
+        except TokenError:
+            return Response(
+                {"message": "Invalid or expired token."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
