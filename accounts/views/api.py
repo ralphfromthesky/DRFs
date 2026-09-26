@@ -21,18 +21,19 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
+        b  
         user = serializer.save()
         UserProfile.objects.create(user=user, role='viewer')
         
         return Response({
-            "message" : "User registered successfully."
+            "message" : "User registered successfully.",
+            "status" : True,
         },status=status.HTTP_201_CREATED)
         
 class LoginView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny]    
 
-    def post(self, request):
+    def post(self, request): 
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
