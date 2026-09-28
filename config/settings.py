@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'inventory',
     'employee',
     'students',
-    'corsheaders'
+    'corsheaders',
+    'books'
 ]
 
 MIDDLEWARE = [
