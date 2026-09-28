@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'students',
     'corsheaders',
     'books',
-    'police'
+    'police',
+    'gamers'
 ]
 
 MIDDLEWARE = [
