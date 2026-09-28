@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'accounts',
     'inventory',
     'employee',
+    'students',
     'corsheaders'
 ]
 
@@ -58,13 +59,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -92,3 +93,14 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'employee_db',
+        'USER': 'postgres',
+        'PASSWORD': 'santolorin030984',  # <- yung password na ginawa mo noong PostgreSQL installation
+        'HOST': 'localhost',
+        'PORT': '5433',
+    }
+}

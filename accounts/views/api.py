@@ -21,7 +21,7 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        b  
+
         user = serializer.save()
         UserProfile.objects.create(user=user, role='viewer')
         
