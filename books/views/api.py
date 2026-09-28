@@ -28,3 +28,25 @@ class BooksView(APIView):
             "data" : serializer.data
         }, status=status.HTTP_200_OK)
         
+        
+        
+class BooksViewEdit(APIView):
+    permission_classes = [AllowAny]
+    
+    def delete(self, request, pk):
+        books = Book.objects.get(pk=pk)
+        books.delete()
+        return Response({
+            "message" : f"the book with the id {pk} is deleted!"
+        }, status=status.HTTP_200_OK)
+        
+    def put(self, request, pk):
+        book = Book.objects.get(pk=pk)
+        serializer = BookSerializer(book, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({
+            "messsage" : f"the book with the id of {pk} is editted!",
+            "status" : True
+        }, status=status.HTTP_200_OK)
+        
