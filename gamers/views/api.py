@@ -35,3 +35,13 @@ class GamersViewEdit(APIView):
         return Response({
             "message" : f"Gamer withe the id of {pk} is deleted!"
         }, status=status.HTTP_200_OK)
+        
+    def put(self, request, pk):
+        gamer = Gamers.objects.get(pk=pk)
+        serializer = GamerSerializers(gamer, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({
+            "message" : f"Gamer with the id of {pk} is editted!",
+            "status" : True
+        }, status=status.HTTP_200_OK)
