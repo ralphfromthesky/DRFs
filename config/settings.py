@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'books',
     'police',
-    'gamers'
+    'gamers',
+    'employers'
 ]
 
 MIDDLEWARE = [
@@ -102,7 +103,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'employee_db',
         'USER': 'postgres',
-        'PASSWORD': 'santolorin030984',  # <- yung password na ginawa mo noong PostgreSQL installation
+        'PASSWORD': 'santolorin030984',  
         'HOST': 'localhost',
         'PORT': '5433',
     }
