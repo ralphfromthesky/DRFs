@@ -93,6 +93,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'config.pagination.pagination.GlobalPagination',
+    'PAGE_SIZE': 10,
 }
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",

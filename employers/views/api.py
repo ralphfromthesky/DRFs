@@ -1,6 +1,6 @@
 from  ..models.models import Employers
 from ..serializers.serializers import EmployerSerializers
-
+from config.pagination.pagination import GlobalPagination
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -20,12 +20,17 @@ class EmployerViews(APIView):
 
 
     def get(self, request):
-        employer = Employers.objects.all()
-        serializer = EmployerSerializers(employer, many=True)
-        return Response({
-            "status" : True,
-            "data" : serializer.data,
-        }, status=status.HTTP_200_OK)
+        # employer = Employers.objects.all()  
+        # serializer = EmployerSerializers(employer, many=True)
+        # return Response({
+        #     "status" : True,
+        #     "data" : serializer.data,
+        # }, status=status.HTTP_200_OK)
+        employer = Employers.objects.all().order_by('id')
+        paginator = GlobalPagination()
+        page = paginator.paginate_queryset(employer, request, view=self)
+        serializer = EmployerSerializers(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
         
         
 class EmployerViewEdit(APIView):
