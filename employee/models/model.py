@@ -8,7 +8,7 @@ class Employee(models.Model):
     address = models.TextField(blank=True)
     salary = models.PositiveIntegerField(default=0)
     profession = models.TextField(blank=True)
-    employer = models.ForeignKey(Employers, on_delete=models.CASCADE)    
+    employer = models.ForeignKey(Employers, on_delete=models.CASCADE) # relation ship employer to employee
     
     
     def __str__(self):

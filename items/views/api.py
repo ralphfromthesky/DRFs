@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import viewsets
+from rest_framework.exceptions import PermissionDenied
+
 
 # class ItemViews(APIView):
 #     permission_classes = [AllowAny]
@@ -35,14 +37,19 @@ class ItemViews(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     queryset = Items.objects.all().order_by('id')
     serializer_class = ItemsSerializers
-    
-    
+
+    def perform_create(self, serializer):
+        if self.request.user.is_authenticated:
+            serializer.save(owner=self.request.user)
+        else:
+            raise PermissionDenied("Login Please!")
+            
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
         return Response({
-            "message" : "Item Saved",
-            "status" : True,
-            "data" : response.data
+            "message": "Item Saved",
+            "status": True,
+            "data": response.data
         }, status=status.HTTP_201_CREATED)
             
 #class ItemEditViews(APIView):
