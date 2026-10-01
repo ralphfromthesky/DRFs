@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'police',
     'gamers',
     'employers',
-    'products'
+    'products', 
+    'items'
 ]
 
 MIDDLEWARE = [

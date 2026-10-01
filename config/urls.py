@@ -27,7 +27,8 @@ urlpatterns = [
     path('police/', include('police.urls.urls')),
     path('gamers/', include('gamers.urls.urls')),
     path('employers/', include('employers.urls.urls')),
-    path('products/', include('products.urls.urls'))
+    path('products/', include('products.urls.urls')),
+    path('items/', include('items.urls.urls'))
 
 
 ]
