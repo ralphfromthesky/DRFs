@@ -54,4 +54,3 @@ class StudentViewDetails(APIView):
     
     
     
-    
