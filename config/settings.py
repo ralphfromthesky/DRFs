@@ -1,6 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
+
 
 # Load .env file
 load_dotenv()
@@ -22,6 +24,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
     'accounts',
     'inventory',
     'employee',
@@ -62,6 +65,11 @@ TEMPLATES = [
         },
     },
 ]
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
 
 WSGI_APPLICATION = 'config.wsgi.application'
 

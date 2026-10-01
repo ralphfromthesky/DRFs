@@ -6,7 +6,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import viewsets
-from rest_framework.exceptions import PermissionDenied
+
+from rest_framework.exceptions import PermissionDenied # kung nakalogin
+
+from rest_framework import filters  #para sa filter
+from django_filters.rest_framework import DjangoFilterBackend #para sa filter
 
 
 # class ItemViews(APIView):
@@ -37,14 +41,17 @@ class ItemViews(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     queryset = Items.objects.all().order_by('id')
     serializer_class = ItemsSerializers
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['is_available']
+    search_fields = ['item_name', 'item_descriptions']
+    ordering_fields = ['value', 'item_count']
 
-
-    def get_queryset(self):
+    def get_queryset(self):  #for fetching his own items
         if self.request.user.is_authenticated:
             return Items.objects.filter(owner=self.request.user)
         return Items.objects.none()
         
-    def perform_create(self, serializer):
+    def perform_create(self, serializer): #for saving own numbers
         if self.request.user.is_authenticated:
             serializer.save(owner=self.request.user)
         else:
