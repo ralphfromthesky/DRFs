@@ -7,7 +7,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 class GamersView(APIView):
-    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = GamerSerializers(data=request.data)
@@ -27,7 +26,6 @@ class GamersView(APIView):
         }, status=status.HTTP_200_OK)
         
 class GamersViewEdit(APIView):
-    permission_classes = [AllowAny]
     
     def delete(self, request, pk):
         gamer = Gamers.objects.get(pk=pk)

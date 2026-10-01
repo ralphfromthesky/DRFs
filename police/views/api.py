@@ -8,7 +8,6 @@ from rest_framework.permissions import AllowAny
 
 
 class PoliceViews(APIView):
-    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = PoliceSerializer(data=request.data)
@@ -29,7 +28,6 @@ class PoliceViews(APIView):
         }, status=status.HTTP_200_OK)
         
 class PoliceViewEdiDelete(APIView):
-    permission_classes = [AllowAny]
     
     def delete(self, request, pk):
         police = Police.objects.get(pk=pk)

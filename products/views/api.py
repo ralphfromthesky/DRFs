@@ -68,4 +68,3 @@ from rest_framework.permissions import AllowAny
 class ProductView(viewsets.ModelViewSet):
     queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializers
-    permission_classes = [AllowAny]

@@ -7,7 +7,6 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
 class StudentsView(APIView):
-    permission_classes = [AllowAny]
     
     def get(self, request):
         student = Students.objects.all()
@@ -34,7 +33,6 @@ class StudentsView(APIView):
         
 
 class StudentViewDetails(APIView):
-        permission_classes = [AllowAny]
         
         def put(self, request, pk):
             student = Students.objects.get(pk=pk)
