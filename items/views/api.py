@@ -38,6 +38,12 @@ class ItemViews(viewsets.ModelViewSet):
     queryset = Items.objects.all().order_by('id')
     serializer_class = ItemsSerializers
 
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Items.objects.filter(owner=self.request.user)
+        return Items.objects.none()
+        
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
             serializer.save(owner=self.request.user)
