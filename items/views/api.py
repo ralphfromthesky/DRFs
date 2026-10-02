@@ -43,8 +43,8 @@ class ItemViews(viewsets.ModelViewSet):
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter] #para sa filter
     filterset_fields = ['is_available'] #para sa filter
-    search_fields = ['item_name', 'item_descriptions'] #para sa filter
-    ordering_fields = ['value', 'item_count'] #para sa filter
+    search_fields = ['item_name', 'item_descriptions'] #para sa filter search bar
+    ordering_fields = ['value', 'item_count'] #para sa filter at ordering ng number
 
     def get_queryset(self):  #for fetching his own items
         if self.request.user.is_authenticated:
