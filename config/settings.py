@@ -107,9 +107,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'config.pagination.pagination.GlobalPagination',
     'PAGE_SIZE': 10,
 }
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173').split(',')
 
 DATABASES = {
     'default': {
