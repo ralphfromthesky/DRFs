@@ -38,6 +38,7 @@ from django_filters.rest_framework import DjangoFilterBackend #para sa filter
         
         
 class ItemViews(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = Items.objects.all().order_by('id')
     serializer_class = ItemsSerializers
     
