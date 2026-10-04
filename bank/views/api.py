@@ -8,28 +8,34 @@ from rest_framework.permissions import AllowAny
 
 from rest_framework.viewsets import ModelViewSet
 
-class BankViews(APIView):
+class BankModelViewSet(ModelViewSet):
     permission_classes = [AllowAny]
+    serializer_class = BankSerializers
+    queryset = Banks.objects.all().order_by('id')
     
-    def post(self, request):
-        serializer = BankSerializers(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({
-            "message": "Bank save successfully!",
-            "status" : True,
-        }, status=status.HTTP_201_CREATED)
+
+# class BankViews(APIView):
+#     permission_classes = [AllowAny]
+    
+#     def post(self, request):
+#         serializer = BankSerializers(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response({
+#             "message": "Bank save successfully!",
+#             "status" : True,
+#         }, status=status.HTTP_201_CREATED)
         
-    def get(self, request):
-        bank = Banks.objects.all()
-        serializer = BankSerializers(bank, many=True)
-        return Response({
-            "status" : True,
-            "data" : serializer.data
-        }, status=status.HTTP_200_OK)
+#     def get(self, request):
+#         bank = Banks.objects.all()
+#         serializer = BankSerializers(bank, many=True)
+#         return Response({
+#             "status" : True,
+#             "data" : serializer.data
+#         }, status=status.HTTP_200_OK)
         
         
-class BankViewsEdit(APIView):
+# class BankViewsEdit(APIView):
     permission_classes = [AllowAny]
     
     def delete(self, request, pk):
